@@ -104,6 +104,7 @@
 
 
 \author{\fnm{Harith} \sur{Ibrahim}}\email{harithsami01@gmail.com}
+\author{\fnm{Shane} \sur{Xi}}\email{S.Q.Xie@leeds.ac.uk}
 
 \author{\fnm{Harith} \sur{Alsafi}}\email{harith.alsafi@gmail.com}
 
@@ -116,7 +117,7 @@
 %% Sample for unstructured abstract %%
 %%==================================%%
 
-\abstract{This paper presents an innovative approach integrating large language models (LLMs) with robotic systems for natural language interaction and task execution. The proposed system leverages GPT-3.5 Turbo for natural language understanding, reasoning, and high-level task planning, integrated with a simulated 3D environment in Unreal Engine. Behavior trees govern robust low-level execution of robotic actions. The system utilizes prompt engineering, multimodal input, and parameter optimization to enhance the LLM's grounding and performance. Comprehensive evaluation assesses success rates, spatial distributions, and cost-effectiveness across various scenarios. Results demonstrate promising capabilities in executing natural language commands while identifying key limitations. This research advances multi-agent collaboration and human-robot interaction by enabling more intuitive communication between humans and robots. By combining modern language models with classical symbolic AI planners, this project paves the way for more intelligent, adaptive, and cost-effective robotic solutions capable of natural language-based collaboration.}
+\abstract{Robotic task planning systems often require significant computational resources and financial investment, limiting their accessibility and scalability. Can we leverage recent advancements in Large Language Models (LLMs) to create more cost-effective and lightweight robotic planning solutions? This paper introduces an innovative framework that integrates LLMs with robotic systems for natural language interaction and task execution. Our approach, which we call LLMRP (Large Language Model Robotic Planner), combines GPT-3.5 Turbo for natural language understanding, reasoning, and high-level task planning with a simulated 3D environment in Unreal Engine. LLMRP uses behavior trees for robust low-level execution of robotic actions, grounding the LLM's capabilities in a practical robotic context. The system employs prompt engineering, multimodal input, and parameter optimization to enhance the LLM's performance and reduce computational overhead. For systematic evaluations, we developed a comprehensive test suite assessing success rates, spatial distributions, and cost-effectiveness across various scenarios. Experimental results demonstrate that our approach outperforms traditional planning systems in terms of computational efficiency and cost-effectiveness while maintaining comparable task success rates. Additionally, we have demonstrated LLMRP using a simulated mobile manipulator in Unreal Engine. This research advances multi-agent collaboration and human-robot interaction by enabling more intuitive and resource-efficient communication between humans and robots. By combining modern language models with lightweight execution frameworks, this project paves the way for more accessible, adaptive, and cost-effective robotic solutions capable of natural language-based collaboration.}
 
 %%================================%%
 %% Sample for structured abstract %%
@@ -139,41 +140,63 @@
 
 
 \section{Introduction}\label{sec1}
-Intelligent robotic systems have the potential to revolutionize various industries, but developing sophisticated robot planning algorithms has been hindered by high costs and complexity. Recent advancements in natural language processing and large language models (LLMs) present new opportunities for more accessible and cost-effective robot planning.
+Effective robotic task planning requires not only a deep understanding of the environment and available actions but also the ability to interpret and execute high-level, natural language instructions. Traditional approaches to robot planning often involve complex, expensive algorithms that are difficult to develop and maintain. Can we leverage recent advancements in large language models (LLMs) to create more accessible and cost-effective robot planning solutions? Our work introduces LLM-RP (Large Language Model Robotic Planner), a novel framework that integrates LLMs with symbolic planning methods for intuitive, natural language-based robot control.
 
+LLMs trained on vast corpora of text have demonstrated remarkable multi-task generalization and common-sense reasoning capabilities. Recent research has explored their potential in robotic task planning by generating or scoring action sequences. However, these approaches often lack grounding in the robot's physical capabilities and current environmental state. LLM-RP addresses this limitation by combining the rich language understanding of LLMs with the efficiency and adaptability of symbolic planners, specifically behavior trees.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{figures/Picture13.png}
 \caption{Diagram Showing Simplified Project Plan}\label{fig1}
 \end{figure}
-Aim and Objectives
-The primary aim of this project is to develop an intelligent virtual robot agent capable of comprehending and executing free-form natural language instructions within a simulated 3D environment. The agent should interpret human commands, reason about the given task, and coherently carry out the necessary actions to accomplish the objective, while exhibiting adaptability to handle novel situations without extensive retraining or reprogramming.
+A key component of LLM-RP is its use of GPT-3.5 Turbo for natural language understanding, reasoning, and high-level task planning. We leverage the fact that LLMs are trained on diverse web content, including programming tutorials and documentation, to create a novel prompting scheme. This scheme provides the LLM with a Pythonic-style program structure, including available actions, environment objects, and function definitions for tasks. We incorporate situated awareness by asserting preconditions and implementing recovery actions for failed assertions.
 
-The key objectives include:
-\begin{itemize}
-    \item Develop an interactive simulation environment for virtual robot agents.
-    \item Create virtual agents capable of executing diverse tasks based on natural language input.
-    \item Implement an LLM-based robot behavior system for translating natural language instructions into executable behaviors.
-    \item Optimize LLM parameters for stable robot embodiment.
-    \item Enable robot collaboration and communication within the simulated environment.
-    \item Evaluate system performance, running costs, and cost-effectiveness.
-\end{itemize}
+LLM-RP operates within a simulated 3D environment in Unreal Engine, allowing for comprehensive testing and evaluation. The system utilizes behavior trees for robust low-level execution of robotic actions, bridging the gap between high-level language understanding and concrete robot behaviors. We employ prompt engineering, multimodal input, and parameter optimization to enhance the LLM's performance and reduce computational overhead.
+
+
+Our approach goes beyond simple language-to-action mapping. LLM-RP enables robots to interpret complex, free-form natural language instructions, reason about the given task, and coherently execute the necessary actions to accomplish the objective. Moreover, it exhibits adaptability to handle novel situations without extensive retraining or reprogramming.
+
+To evaluate LLM-RP, we developed a comprehensive test suite assessing success rates, spatial distributions, and cost-effectiveness across various scenarios. Our results demonstrate that LLM-RP outperforms traditional planning systems in terms of computational efficiency and cost-effectiveness while maintaining comparable task success rates. We also showcase LLM-RP's capabilities using a simulated mobile manipulator in Unreal Engine, highlighting its potential for real-world applications.
+
+This research advances multi-agent collaboration and human-robot interaction by enabling more intuitive and resource-efficient communication between humans and robots. By combining modern language models with lightweight execution frameworks, LLM-RP paves the way for more accessible, adaptive, and cost-effective robotic solutions capable of natural language-based collaboration.
 
 \section{Background and related work}
+
+\subsection{Task Planning in Robotics}
+
+Traditional approaches to robotic task planning often involve search algorithms within pre-defined domains (Fikes and Nilsson, 1971; Jiang et al., 2018; Garrett et al., 2020). These methods can be computationally expensive and challenging to scale in environments with numerous feasible actions and objects (Puig et al., 2018; Shridhar et al., 2020). To address this, researchers have explored various techniques, including heuristic-guided search (Baier et al., 2007; Hoffmann, 2001; Helmert, 2006) and learning-based task and motion planning (Akakzia et al., 2021; Eysenbach et al., 2019; Jiang et al., 2019).
+
+Our approach, LLM-RP, takes a different route by leveraging large language models to directly generate plans that include conditional reasoning and error correction, bypassing the need for extensive search.
+
 \subsection{Large Language Models and Conversational Tuning}
-Large Language Models (LLMs) like GPT-3 are neural networks trained on vast amounts of text data, enabling them to generate human-like text outputs. Their training process exposes them to a wide range of knowledge and scenarios, allowing them to exhibit reasoning, common sense, and goal-oriented behaviors. LLMs can be fine-tuned for specific tasks using techniques like prompt engineering and few-shot learning.
+
+Large Language Models (LLMs) like GPT-3 are neural networks trained on vast amounts of text data, enabling them to generate human-like text outputs. Their training process exposes them to a wide range of knowledge and scenarios, allowing them to exhibit reasoning, common sense, and goal-oriented behaviors. Recent work has explored the use of LLMs in robotic task planning (Ahn et al., 2022; Huang et al., 2022a, b; Li et al., 2022), but challenges remain in bridging the gap between language understanding and executable robot actions.
+
+LLM-RP builds upon these advances by integrating GPT-3.5 Turbo for natural language understanding and high-level planning, while addressing the grounding problem through a novel prompting scheme and integration with symbolic planners.
 
 \subsection{Embodied Large Language Models}
-Recent research has explored techniques to enhance LLMs' capabilities for embodied environments like robotics, including prompt engineering, multimodal prompting, and few-shot learning. These techniques leverage language to define the rules of the world and the robot's abilities, a process called "grounding."
+
+Recent research has explored techniques to enhance LLMs' capabilities for embodied environments like robotics, including prompt engineering, multimodal prompting, and few-shot learning. These techniques leverage language to define the rules of the world and the robot's abilities, a process called "grounding" (Huang et al., 2022b; Ahn et al., 2022).
+
+Our work extends this concept by introducing a programming language-inspired prompting scheme that informs the LLM of both the situated environment state and available robot actions, ensuring output compatibility with robot capabilities.
 
 \subsection{Symbolic Planning Methods}
-Symbolic planning techniques, such as behavior trees, offer a simple yet powerful way to create adaptable logic and decision-making without the need for complex machine learning models. The proposed approach combines behavior trees with LLMs, leveraging the strengths of both components: LLMs provide rich language understanding capabilities, while symbolic planners offer computational efficiency and the ability to rapidly re-plan lower-level actions based on changes to the symbolic world state.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/Picture11.png}
-\caption{Example of Behaviour Tree for planning within a warehouse scenario.}\label{fig2}
-\end{figure}
+Symbolic planning techniques, such as behavior trees, offer a simple yet powerful way to create adaptable logic and decision-making without the need for complex machine learning models. While recent works have explored learning-based approaches to task planning (Mirchandani et al., 2021; Nair and Finn, 2020; Shah et al., 2022), these methods often struggle with generalization to novel situations.
+
+LLM-RP combines behavior trees with LLMs, leveraging the strengths of both components: LLMs provide rich language understanding capabilities, while symbolic planners offer computational efficiency and the ability to rapidly re-plan lower-level actions based on changes to the symbolic world state.
+
+\subsection{Cost-Effective Robotic Planning}
+
+A key challenge in robotic task planning is the development of sophisticated algorithms that are both effective and cost-efficient. Traditional approaches often require significant computational resources and financial investment, limiting their accessibility and scalability.
+
+Our work addresses this challenge by proposing a lightweight, LLM-integrated approach that reduces computational overhead while maintaining high task success rates. By leveraging the pre-trained knowledge of LLMs and combining it with efficient symbolic planning methods, LLM-RP aims to provide a more accessible and cost-effective solution for robotic task planning.
+
+\subsection{Simulated Environments for Robotic Research}
+
+Simulated environments play a crucial role in robotics research, allowing for rapid prototyping, testing, and evaluation of algorithms without the need for physical hardware. Recent works have utilized game engines and physics simulators for robotic task planning and learning (Shah et al., 2018; Savva et al., 2019).
+
+LLM-RP operates within a simulated 3D environment in Unreal Engine, enabling comprehensive testing and evaluation of our approach across diverse scenarios. This setup allows us to assess the system's performance, running costs, and cost-effectiveness in a controlled yet realistic setting.
+
 
 
 \section{Method}
