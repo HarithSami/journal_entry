@@ -280,146 +280,61 @@ This implementation allows us to test and evaluate our approach across diverse s
 % \caption{Proposed Robot Cognitive Architecture.}\label{fig8}
 % \end{figure}
 
-You can simplify and split the algorithm for better readability. Here’s a proposed version with simplifications and the split:
-
-Algorithm: Integrated Cognitive Architecture for LLM-Driven Robotic NPC with Concurrent Perception
-
-Main Execution Loop
-\begin{algorithm}
-\caption{Main Execution Loop}\label{algo_main_execution_loop}
-\begin{algorithmic}[1]
-\Require LLM API, Behavior Tree System, Facial Expression Module, Perception System
-\Ensure Coherent NPC cognition, communication, action, and environmental awareness
-\Procedure{MainExecutionLoop}{}
-    \Parallel
-        \State CognitiveLoop()
-        \State PerceptionLoop()
-    \EndParallel
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
 
 \begin{algorithm}
-\caption{Cognitive Loop}\label{algo_cognitive_loop}
+\caption{Cognitive Architecture for LLM-Driven Robotic NPC}\label{algo_cognitive_npc}
 \begin{algorithmic}[1]
+\Require LLM API, Behavior Tree System, Facial Expression Module
+\Ensure Coherent NPC cognition, communication, and action
 \Procedure{CognitiveLoop}{}
-    \While{SessionActive()}
-        \State stimulus $\gets$ AcquireEnvironmentalInput()
-        \State cognition $\gets$ CognitiveProcessing(stimulus)
-        \State ExecuteCognitiveOutput(cognition)
-    \EndWhile
+\While{SessionActive()}
+\State stimulus $\gets$ AcquireEnvironmentalInput()
+\State cognition $\gets$ CognitiveProcessing(stimulus)
+\State ExecuteCognitiveOutput(cognition)
+\EndWhile
 \EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}
-\caption{Perception Loop}\label{algo_perception_loop}
-\begin{algorithmic}[1]
-\Procedure{PerceptionLoop}{}
-    \While{SessionActive()}
-        \State sensorData $\gets$ AcquireSensorInput()
-        \State ProcessPerceptionData(sensorData)
-        \State UpdateEnvironmentalDatabase()
-    \EndWhile
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}
-\caption{Cognitive Processing}\label{algo_cognitive_processing}
-\begin{algorithmic}[1]
 \Procedure{CognitiveProcessing}{stimulus}
-    \State context $\gets$ RetrieveContextualMemory()
-    \State envData $\gets$ QueryEnvironmentalDatabase()
-    \State integratedInput $\gets$ IntegrateInput(stimulus, context, envData)
-    \State llmOutput $\gets$ InvokeLLM(integratedInput)
-    \If{ValidateLLMOutput(llmOutput)}
-        \State UpdateEpisodicMemory(llmOutput)
-        \State \Return llmOutput
-    \Else
-        \State LogCognitiveError("LLM Invocation Failed")
-        \State TerminateSession()
-    \EndIf
+\State context $\gets$ RetrieveContextualMemory()
+\State integratedInput $\gets$ IntegrateInput(stimulus, context)
+\State llmOutput $\gets$ InvokeLLM(integratedInput)
+\If{ValidateLLMOutput(llmOutput)}
+\State UpdateEpisodicMemory(llmOutput)
+\State \Return llmOutput
+\Else
+\State LogCognitiveError("LLM Invocation Failed")
+\State TerminateSession()
+\EndIf
 \EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-
-
-\begin{algorithm}
-\caption{Execute Cognitive Output}\label{algo_execute_cognitive_output}
-\begin{algorithmic}[1]
 \Procedure{ExecuteCognitiveOutput}{cognition}
-    \If{ErrorDetected(cognition)}
-        \State LogCognitiveError(cognition)
-        \State TerminateSession()
-    \Else
-        \Parallel
-            \State ActionExecution(cognition)
-            \State EmotionalExpression(cognition)
-        \EndParallel
-    \EndIf
+\If{ErrorDetected(cognition)}
+\State LogCognitiveError(cognition)
+\State TerminateSession()
+\Else
+\ParallelProcedure
+\State ActionExecution(cognition)
+\State EmotionalExpression(cognition)
+\EndParallelProcedure
+\EndIf
 \EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-
-
-\begin{algorithm}
-\caption{Action Execution}\label{algo_action_execution}
-\begin{algorithmic}[1]
 \Procedure{ActionExecution}{cognition}
-    \State action $\gets$ ExtractAction(cognition)
-    \State parameters $\gets$ ExtractParameters(cognition)
-    \If{RequiresEnvironmentalData(action)}
-        \State envData $\gets$ QueryEnvironmentalDatabase()
-        \State parameters $\gets$ UpdateParameters(parameters, envData)
-    \EndIf
-    \State behaviorTree $\gets$ SelectBehaviorTree(action, parameters)
-    \State executionResult $\gets$ ExecuteBehaviorTree(behaviorTree)
-    \State UpdateEpisodicMemory(executionResult)
+\State action $\gets$ ExtractAction(cognition)
+\State parameters $\gets$ ExtractParameters(cognition)
+\State behaviorTree $\gets$ SelectBehaviorTree(action, parameters)
+\State executionResult $\gets$ ExecuteBehaviorTree(behaviorTree)
+\State UpdateEpisodicMemory(executionResult)
 \EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-
-\begin{algorithm}
-\caption{Emotional Expression}\label{algo_emotional_expression}
-\begin{algorithmic}[1]
 \Procedure{EmotionalExpression}{cognition}
-    \State emotionVector $\gets$ EmotionInference(cognition)
-    \State facialConfiguration $\gets$ MapEmotionToExpression(emotionVector)
-    \State ActivateFacialExpression(facialConfiguration)
+\State emotionVector $\gets$ EmotionInference(cognition)
+\State facialConfiguration $\gets$ MapEmotionToExpression(emotionVector)
+\State ActivateFacialExpression(facialConfiguration)
 \EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-
-\begin{algorithm}
-\caption{Process Perception Data}\label{algo_process_perception_data}
-\begin{algorithmic}[1]
-\Procedure{ProcessPerceptionData}{sensorData}
-    \State objectData $\gets$ ObjectDetection(sensorData)
-    \State locationData $\gets$ LocationEstimation(objectData)
-    \State contextData $\gets$ ContextInference(objectData, locationData)
-    \State UpdateEnvironmentalDatabase(objectData, locationData, contextData)
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-
-
-\begin{algorithm}
-\caption{Terminate Session}\label{algo_terminate_session}
-\begin{algorithmic}[1]
 \Procedure{TerminateSession}{}
-    \State GenerateSessionReport()
-    \State ReleaseSystemResources()
-    \State InitiateShutdownSequence()
+\State GenerateSessionReport()
+\State ReleaseSystemResources()
+\State InitiateShutdownSequence()
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-
 
 
 

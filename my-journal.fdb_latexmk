@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex my-journal"] 1720646664 "my-journal.aux" "my-journal.bbl" "my-journal" 1720646664
+["bibtex my-journal"] 1720646885 "my-journal.aux" "my-journal.bbl" "my-journal" 1720646885
   "./sn-mathphys-num.bst" 1719861896 64141 2560fd4f8e8321a304f732d035eb1b51 ""
   "my-journal.aux" 0 -1 0 "pdflatex"
   "sn-bibliography.bib" 1719861896 8810 b816fbaa07dc6303b547b0eb19e72bea ""
   (generated)
   "my-journal.bbl"
   "my-journal.blg"
-["pdflatex"] 1720646664 "/mnt/d/Projects/Coding/GitHub/journal_entry/my-journal.tex" "my-journal.pdf" "my-journal" 1720646664
+["pdflatex"] 1720646886 "/mnt/d/Projects/Coding/GitHub/journal_entry/my-journal.tex" "my-journal.pdf" "my-journal" 1720646886
   "/etc/texmf/web2c/texmf.cnf" 1719860937 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/mnt/d/Projects/Coding/GitHub/journal_entry/my-journal.tex" 1720646617 45432 50de039d3bbf4dc6ddec07a10ed89a59 ""
+  "/mnt/d/Projects/Coding/GitHub/journal_entry/my-journal.tex" 1720646854 42916 9b01fe0c4d8a1d3f52329e9aa01f87a9 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -154,9 +154,9 @@
   "figures/heatmap.png" 1719861896 189947 f3101de6467594a240621def827678a4 ""
   "figures/running_cost.png" 1719861896 21120 f417d4740e08c500df3093e315319bd9 ""
   "my-journal.aux" 0 -1 0 "pdflatex"
-  "my-journal.bbl" 1720646659 2176 62ab3ae76b4bb4e7a200a696693c90d3 "bibtex my-journal"
+  "my-journal.bbl" 1720646876 2176 62ab3ae76b4bb4e7a200a696693c90d3 "bibtex my-journal"
   "my-journal.out" 0 -1 0 "pdflatex"
-  "my-journal.tex" 1720646617 45432 50de039d3bbf4dc6ddec07a10ed89a59 ""
+  "my-journal.tex" 1720646854 42916 9b01fe0c4d8a1d3f52329e9aa01f87a9 ""
   "sn-jnl.cls" 1719861896 55331 d7cf5cb282c5c6c90059534004dcdf13 ""
   (generated)
   "my-journal.aux"
