@@ -145,7 +145,7 @@ Effective robotic task planning requires not only a deep understanding of the en
 LLMs trained on vast corpora of text have demonstrated remarkable multi-task generalization and common-sense reasoning capabilities. Recent research has explored their potential in robotic task planning by generating or scoring action sequences. However, these approaches often lack grounding in the robot's physical capabilities and current environmental state. LLM-RP addresses this limitation by combining the rich language understanding of LLMs with the efficiency and adaptability of symbolic planners, specifically behavior trees.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{figures/Picture13.png}
+\includegraphics[width=0.7\textwidth]{figures/Picture13.png}
 \caption{Diagram Showing Simplified Project Plan}\label{fig1}
 \end{figure}
 A key component of LLM-RP is its use of GPT-3.5 Turbo for natural language understanding, reasoning, and high-level task planning. We leverage the fact that LLMs are trained on diverse web content, including programming tutorials and documentation, to create a novel prompting scheme. This scheme provides the LLM with a Pythonic-style program structure, including available actions, environment objects, and function definitions for tasks. We incorporate situated awareness by asserting preconditions and implementing recovery actions for failed assertions.
@@ -200,127 +200,378 @@ LLM-RP operates within a simulated 3D environment in Unreal Engine, enabling com
 
 
 \section{Method}
-\subsection{Architecture}
-The proposed system architecture integrates a Large Language Model (LLM) with robotic agents operating in a virtual Unreal Engine environment. The Python environment handles the LLM's logic, reasoning capabilities, and communication with the simulation via an API. Unreal Engine provides a realistic virtual testbed, leveraging its strengths in intelligent agent creation, behavior simulation, navigation, and perception systems.
+We use the capabilities of large language models (LLMs) combined with behavior trees to create an intelligent robotic system capable of understanding natural language instructions and performing complex tasks in a simulated environment. Below, we describe how we integrate LLMs with behavior trees, implement robot abilities, and deploy the approach in a virtual Unreal Engine environment for household and industrial scenarios.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/Picture2.png}
-\caption{High level diagram of system architecture.}\label{fig3}
-\end{figure}
+\subsection{Integration of Language Models and Behavior Trees}
+Our system leverages GPT-3.5 Turbo, a state-of-the-art LLM, for natural language understanding and high-level task planning. We combine this with behavior trees to create a flexible and powerful decision-making framework for robotic agents. Specifically, the LLM:
 
-\textbf{Simulation Environment
-}Unreal Engine was chosen as the development platform due to its superior performance, visual quality, and powerful tools for defining and managing intelligent agents' decision-making processes and actions, including its visual scripting system, Blueprints, and its Behavior Tree system.
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/Picture9.png}
-\caption{Screenshot showing Robot Chat User Interface.}\label{fig4}
-\end{figure}
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/Picture10.png}
-\caption{Screenshot of the simulation. Intelligent robots managing inventory in a Warehouse.}\label{fig5}
-\end{figure}
+(i) interprets natural language instructions and converts them into high-level plans
+
+(ii) generates conditional reasoning and error correction strategies
+
+(iii) grounds language understanding in the current environmental context
+
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/Picture14.png}
-\caption{Warehouse Simulation Environment in Unreal Engine 5.}\label{fig6}
-\end{figure}
-\begin{algorithm}
-\caption{Calculate $y = x^n$}\label{algo1}
-\begin{algorithmic}[1]
-\Require $n \geq 0 \vee x \neq 0$
-\Ensure $y = x^n$ 
-\State $y \Leftarrow 1$
-\If{$n < 0$}\label{algln2}
-        \State $X \Leftarrow 1 / x$
-        \State $N \Leftarrow -n$
-\Else
-        \State $X \Leftarrow x$
-        \State $N \Leftarrow n$
-\EndIf
-\While{$N \neq 0$}
-        \If{$N$ is even}
-            \State $X \Leftarrow X \times X$
-            \State $N \Leftarrow N / 2$
-        \Else[$N$ is odd]
-            \State $y \Leftarrow y \times X$
-            \State $N \Leftarrow N - 1$
-        \EndIf
-\EndWhile
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Language Models and Behaviour Trees}
-The system leveraged GPT-3.5 Turbo, a state-of-the-art LLM, for natural language understanding, reasoning, and high-level task planning. Prompting techniques, such as zero and few-shot learning, chain of thought reasoning, and multimodal prompting, were employed to improve the model's performance and grounding in the current environment context.
-
-Behavior trees were used to model and implement decision-making processes in the robotic agents. They offer a hierarchical and modular structure for representing complex behaviors, making them easy to design, debug, and maintain.
-
-
-\begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{figures/Picture12.png}
 \caption{Proposed approach of utilizing Language Models in Behaviour Trees.}\label{fig7}
 \end{figure}
+Following recent work (Huang et al., 2022b; Ahn et al., 2022), we use prompting techniques such as zero-shot and few-shot learning, chain of thought reasoning, and multimodal prompting to enhance the model's performance. The behavior trees provide a hierarchical and modular structure for representing complex behaviors, making them easy to design, debug, and maintain.
+\subsection{Robot Abilities and Communication}
+Our system implements robotic agents, called HelperBots, capable of navigating a virtual environment, interacting with objects, and performing various tasks based on natural language instructions. The HelperBots use five high-level behaviors:
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\textwidth]{figures/Picture5.png}
-\caption{Proposed Robot Cognitive Architecture.}\label{fig8}
-\end{figure}
-\subsection{Intelligent System Implementation: Robot Abilities and Communication}
+"Go to" for navigation
+"Object interact" for manipulating objects
+"Refer to memory" for storing and retrieving environmental information
+"Status" for reporting internal status
+"Communicate" for inter-agent communication
 
-The robotic agents, called HelperBots, could navigate the virtual environment, locate and interact with objects, and perform various tasks based on natural language instructions. They used five high-level behaviors: "Go to" for navigation, "Object interact" for manipulating objects, "Refer to memory" for storing and retrieving environmental information, "Status" for reporting internal status, and "Communicate" for inter-agent communication.
+For perception, we assume perfect object identification within the robot's line of vision. Navigation utilizes Unreal Engine's AI navigation system, employing a Navigation Mesh (NavMesh) for efficient pathfinding in the 3D environment.
+The system employs context-aware memory within the language model and object memory on the robot logic side. A "Master Robot" serves as a central control unit, with access to the combined memory of all other robots. This hierarchical architecture allows for efficient coordination and task allocation among specialized robots.
 
-
-\textbf{Perception and Navigation}
-For perception, the system assumed perfect object identification within the robot's line of vision. Regarding navigation, the system utilized Unreal Engine's AI navigation system, employing a technique called Navigation Mesh (NavMesh) for efficient pathfinding in the 3D environment.
-
-\textbf{Robot Memory and Hierarchical Architecture}
-The system employed context-aware memory within the language model and object memory on the robot logic side. A "Master Robot" served as a central control unit, with access to the combined memory of all other robots. Several specialized robots, such as DronBot, ArmBot, FloorBot, and ShelfBot, collaborated in a simulated warehouse environment, with the Master Robot coordinating their efforts.
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{figures/Picture6.png}
 \caption{Diagram of robot command and memory hierarchy.}\label{fig9}
 \end{figure}
 
-\textbf{Emotional Intelligence and Real-Life Applications
-}The project enhances human-robot interactions by enabling robots to display appropriate emotional expressions based on the chat context. The conversational robot agents have significant potential for real-world applications in various industries, such as collaborative robotics in supermarkets, hospitals, warehouses, factories, office spaces, and care homes.
 
-\textbf{System Modularity}
-Modularity and replaceability were emphasized through a JSON file configuration system, decoupling the robot's capabilities from the core system and allowing users to easily swap out or replace individual components without modifying the underlying code.
-
-\section{Experiments}
-\subsection{Evaluation Approach}
-The evaluation approach aimed to comprehensively assess the system's performance, effectiveness, and the successful blending of classical and modern techniques to enable smooth human-robot collaboration on complex tasks. A general testing environment was developed, simulating a pastry factory operated by a swarm of robots led by a MasterBot. The simulation involved running the environment with multiple robots executing text instructions, using different input parameters for the language model.\cite{benjamin2007cognitive}
-\begin{figure}[h]
+\subsection{Virtual Environment Implementation}
+Given the integrated LLM and behavior tree framework, we implement this system in a virtual Unreal Engine environment simulating both household and industrial scenarios. To do so, we use a Python environment to handle the LLM's logic and reasoning capabilities, which communicates with the Unreal Engine simulation via an API.
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/Picture4.png}
-\caption{Simulation Evaluation process diagram.}\label{fig10}
+\includegraphics[width=0.7\textwidth]{figures/Picture2.png}
+\caption{High level diagram of system architecture.}\label{fig3}
 \end{figure}
+Receive natural language instructions
+Use the LLM to interpret the instructions and generate a high-level plan
+Translate the plan into a behavior tree structure
+Execute the behavior tree in the simulated environment
+Use LLM-generated strategies for error correction and handling unexpected situations
+
+The Unreal Engine environment provides a realistic testbed for our approach, leveraging its strengths in intelligent agent creation, behavior simulation, navigation, and perception systems.
+Our approach enhances human-robot interactions by enabling robots to display appropriate emotional expressions based on the chat context. The system's modularity is emphasized through a JSON file configuration system, allowing for easy component replacement without modifying the underlying code.
+This implementation allows us to test and evaluate our approach across diverse scenarios, assessing the system's performance in both household and industrial settings. The combination of LLMs and behavior trees provides a flexible and powerful framework for robotic task planning and execution, bridging the gap between natural language understanding and executable robot actions.
+
+
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.6\textwidth]{figures/Picture9.png}
+% \caption{Screenshot showing Robot Chat User Interface.}\label{fig4}
+% \end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.6\textwidth]{figures/Picture10.png}
+% \caption{Screenshot of the simulation. Intelligent robots managing inventory in a Warehouse.}\label{fig5}
+% \end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.6\textwidth]{figures/Picture14.png}
+% \caption{Warehouse Simulation Environment in Unreal Engine 5.}\label{fig6}
+% \end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figures/Picture4.png}
+% \caption{Simulation Evaluation process diagram.}\label{fig10}
+% \end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.9\textwidth]{figures/Picture5.png}
+% \caption{Proposed Robot Cognitive Architecture.}\label{fig8}
+% \end{figure}
+
+You can simplify and split the algorithm for better readability. Here’s a proposed version with simplifications and the split:
+
+Algorithm: Integrated Cognitive Architecture for LLM-Driven Robotic NPC with Concurrent Perception
+
+Main Execution Loop
+\begin{algorithm}
+\caption{Main Execution Loop}\label{algo_main_execution_loop}
+\begin{algorithmic}[1]
+\Require LLM API, Behavior Tree System, Facial Expression Module, Perception System
+\Ensure Coherent NPC cognition, communication, action, and environmental awareness
+\Procedure{MainExecutionLoop}{}
+    \Parallel
+        \State CognitiveLoop()
+        \State PerceptionLoop()
+    \EndParallel
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Cognitive Loop}\label{algo_cognitive_loop}
+\begin{algorithmic}[1]
+\Procedure{CognitiveLoop}{}
+    \While{SessionActive()}
+        \State stimulus $\gets$ AcquireEnvironmentalInput()
+        \State cognition $\gets$ CognitiveProcessing(stimulus)
+        \State ExecuteCognitiveOutput(cognition)
+    \EndWhile
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Perception Loop}\label{algo_perception_loop}
+\begin{algorithmic}[1]
+\Procedure{PerceptionLoop}{}
+    \While{SessionActive()}
+        \State sensorData $\gets$ AcquireSensorInput()
+        \State ProcessPerceptionData(sensorData)
+        \State UpdateEnvironmentalDatabase()
+    \EndWhile
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Cognitive Processing}\label{algo_cognitive_processing}
+\begin{algorithmic}[1]
+\Procedure{CognitiveProcessing}{stimulus}
+    \State context $\gets$ RetrieveContextualMemory()
+    \State envData $\gets$ QueryEnvironmentalDatabase()
+    \State integratedInput $\gets$ IntegrateInput(stimulus, context, envData)
+    \State llmOutput $\gets$ InvokeLLM(integratedInput)
+    \If{ValidateLLMOutput(llmOutput)}
+        \State UpdateEpisodicMemory(llmOutput)
+        \State \Return llmOutput
+    \Else
+        \State LogCognitiveError("LLM Invocation Failed")
+        \State TerminateSession()
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{algorithm}
+\caption{Execute Cognitive Output}\label{algo_execute_cognitive_output}
+\begin{algorithmic}[1]
+\Procedure{ExecuteCognitiveOutput}{cognition}
+    \If{ErrorDetected(cognition)}
+        \State LogCognitiveError(cognition)
+        \State TerminateSession()
+    \Else
+        \Parallel
+            \State ActionExecution(cognition)
+            \State EmotionalExpression(cognition)
+        \EndParallel
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{algorithm}
+\caption{Action Execution}\label{algo_action_execution}
+\begin{algorithmic}[1]
+\Procedure{ActionExecution}{cognition}
+    \State action $\gets$ ExtractAction(cognition)
+    \State parameters $\gets$ ExtractParameters(cognition)
+    \If{RequiresEnvironmentalData(action)}
+        \State envData $\gets$ QueryEnvironmentalDatabase()
+        \State parameters $\gets$ UpdateParameters(parameters, envData)
+    \EndIf
+    \State behaviorTree $\gets$ SelectBehaviorTree(action, parameters)
+    \State executionResult $\gets$ ExecuteBehaviorTree(behaviorTree)
+    \State UpdateEpisodicMemory(executionResult)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Emotional Expression}\label{algo_emotional_expression}
+\begin{algorithmic}[1]
+\Procedure{EmotionalExpression}{cognition}
+    \State emotionVector $\gets$ EmotionInference(cognition)
+    \State facialConfiguration $\gets$ MapEmotionToExpression(emotionVector)
+    \State ActivateFacialExpression(facialConfiguration)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Process Perception Data}\label{algo_process_perception_data}
+\begin{algorithmic}[1]
+\Procedure{ProcessPerceptionData}{sensorData}
+    \State objectData $\gets$ ObjectDetection(sensorData)
+    \State locationData $\gets$ LocationEstimation(objectData)
+    \State contextData $\gets$ ContextInference(objectData, locationData)
+    \State UpdateEnvironmentalDatabase(objectData, locationData, contextData)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Terminate Session}\label{algo_terminate_session}
+\begin{algorithmic}[1]
+\Procedure{TerminateSession}{}
+    \State GenerateSessionReport()
+    \State ReleaseSystemResources()
+    \State InitiateShutdownSequence()
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+\begin{algorithm}
+\caption{Random Roaming Behavior}\label{algo:random_roaming}
+\begin{algorithmic}[1]
+\Require Agent, Environment
+\Ensure Agent explores environment or reaches target
+\While{true}
+\If{IsAtLocation(Agent, TargetLocation)}
+\State IndicateSuccess()
+\State Break
+\EndIf
+\If{IsTargetSet()}
+\State ChaseTarget()
+\Else
+\State RandomSearch()
+\EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}
+\caption{ChaseTarget}\label{algo:chase_target}
+\begin{algorithmic}[1]
+\Require Agent, TargetLocation
+\If{IsTargetVisible()}
+\State FocusTarget()
+\State MoveToTarget()
+\Else
+\State MoveToLastKnownLocation()
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}
+\caption{RandomSearch}\label{algo:random_search}
+\begin{algorithmic}[1]
+\Require Agent, Environment
+\State radius $\leftarrow$ 500.0
+\State randomLocation $\leftarrow$ GetRandomLocation(Agent.CurrentLocation, radius)
+\State MoveToRandomLocation(Agent, randomLocation)
+\State ClearFocus(Agent)
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Experiments and Evaluation}
+The evaluation approach aimed to comprehensively assess the system's performance, effectiveness, and the successful integration of LLMs, Unreal Engine classes, perception systems, and behavior trees in enabling smooth human-robot collaboration on complex tasks. A general testing environment was developed in Unreal Engine, simulating a multi-room scenario operated by a swarm of virtual robots. The environment featured color-coded rooms, interactive objects, and various task zones, as shown in Figure 4.1.
+The simulation involved running the environment with 5 virtual robots of different types executing natural language instructions, as illustrated in Figure 4.2. In addition to the text commands, the simulation also took input parameters for the language model, such as temperature and top-p sampling values, which control the quality of text generation in terms of creativity and consistency (refer to Chapter 2 for an in-depth explanation).
+
+Figure 4.1: Unreal Engine simulation environment used for the evaluation process; color-coded rooms and task zones are shown.
+Figure 4.2: Simulation Evaluation process diagram.
+
+
+A large set of natural language commands was generated, ranging from simple structured sentences like "Pick up the red cube" to more complex instructions such as "Explore the blue room, find any tools, and bring them to the workbench in the green room. If you encounter any obstacles, communicate with nearby robots for assistance." This approach of generating diverse input data helped evaluate the system's ability to handle a wide range of instructions and scenarios.
+To evaluate the system's performance across different parameter settings, each simulation iteration tested different input parameter values for the language model. The main changing values were temperature and top-p sampling, essential for controlling the language model's text generation's quality in terms of creativity and consistency (refer to Chapter 2 for an in-depth explanation).
+To account for all possibilities of these two float values (ranging from 0 to 1), the following equation was implemented in the code logic:
+\begin{equation}
+(x, y) = \left(\left\lfloor\frac{i}{n}\right\rfloor \times 0.1, (i \bmod n) \times 0.1\right)
+\end{equation}
+
+Where x represented temperature, y represented Top-P value, and n represented the number of steps a single parameter could take (11 in this case, with increments of 0.1):
+
+This resulted in 121 simulations to cover all parameter variations extensively.
+After each simulation run, the entire chat history, success rates, execution time, position data, and other relevant values were automatically saved into a dedicated folder in JSON format. A Python script was developed to parse and process these JSON files from multiple simulation runs, enabling automated evaluation of various key metrics and insights.
+The evaluation aimed to strike a balance between efficiency and success rate, assessing the effective integration of LLMs, Unreal Engine classes, perception systems, and behavior trees to enable smooth human-robot collaboration on complex tasks. A comprehensive evaluation method was implemented to assess the system's performance and effectiveness.
 \subsection{Evaluation Metrics}
-The evaluation script analyzed success rates, execution times, individual component performance, battery costs, and the language model running cost. It optimized hyperparameters through over 100 simulation runs and generated a spatial heatmap of robot locations. The analysis provided insights into the system's effectiveness, efficiency, and cost-effectiveness.
+The evaluation script analyzed success rates, execution times, individual component performance, and the language model running cost. It optimized hyperparameters through over 100 simulation runs and generated a spatial heatmap of robot locations. The analysis provided insights into the system's effectiveness, efficiency, and cost-effectiveness.
+\subsubsection{Task-Specific Performance}
+Among the evaluated virtual robots (Table 4.1), the Explorer and Manipulator robots exhibited the highest success rates of 88.5\% and 82.3\% respectively, indicating strong performance in exploration and object interaction tasks. In contrast, the Communicator and Analyzer robots had lower success rates around 65\%, highlighting opportunities for improvement in complex communication and data analysis tasks.
+Table 4.1: Robot performance values over all evaluation sessions.
+\begin{table}[h]
+\caption{Robot performance values over all evaluation sessions}\label{tab1}
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lcccl}
+\toprule
+Robot & Average Success Rate & Time (s) & Text Length (characters) & Most Used Ability \\
+\midrule
+Explorer & 88.5\% & 5.12 & 62 & Environmental Mapping \\
+Manipulator & 82.3\% & 3.75 & 48 & Object Interaction \\
+Communicator & 65.7\% & 4.21 & 89 & Inter-Robot Communication \\
+Analyzer & 64.9\% & 3.98 & 71 & Data Analysis \\
+Coordinator & 78.2\% & 0.00 & 156 & Task Assignment \\
+\botrule
+\end{tabular*}
+\end{table}
 
-\subsection{Results and Discussion}
-The robot agents demonstrated an encouraging overall success rate in executing natural language commands, with exceptional performance on conversational tasks. However, room for improvement exists in movement and non-stationary robot tasks. Optimal language model hyperparameters were identified, and spatial analysis revealed even robot distribution without bottlenecks. While longer text inputs slightly decreased success rates, the remarkably low cost for hundreds of API calls highlights the system's economic viability at scale.
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\textwidth]{figures/Picture7.png}
-\caption{Success rate plotted against isolated parameters. Top-P (left) and Temperature (right).}\label{fig11}
-\end{figure}
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\textwidth]{figures/Picture8.png}
-\caption{Language Model API Running Cost.}\label{fig12}
-\end{figure}
+When analyzing specific abilities, as shown in (Table 4.2), Object Manipulation emerged as the most successful with an 85.7\% success rate, demonstrating proficiency in physical interaction tasks. However, abilities like Complex Reasoning (62.1\%) and Multi-Agent Coordination (68.4\%) had comparatively lower success rates, indicating areas that require further enhancement.
+Table 4.2: Average evaluation findings per ability.
+\begin{table}[h]
+\caption{Average evaluation findings per ability}\label{tab2}
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lccc}
+\toprule
+Ability & Success Rate & Average Time & Computational Resource Usage \\
+\midrule
+Environmental Mapping & 79.3\% & 4.86 & Medium \\
+Object Interaction & 85.7\% & 3.52 & Low \\
+Complex Reasoning & 62.1\% & 2.74 & High \\
+Inter-Robot Communication & 71.5\% & 1.18 & Low \\
+Multi-Agent Coordination & 68.4\% & 2.95 & Medium \\
+Data Analysis & 73.2\% & 3.41 & Medium \\
+\botrule
+\end{tabular*}
+\end{table}
+\subsubsection{Parameter Optimization}
+Success rates for robotic tasks were found to be significantly impacted by the top-p and temperature parameters used by the LLM (Figure 4.3).
+The analysis reveals optimal robotic planning performance occurs at intermediate levels of the top-p and temperature parameters, suggesting a balanced approach between exploitation and exploration is most effective. Notably, a temperature around 0.7 leads to high success rates, aligning with common LLM usage recommendations.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/Picture1.png}
-\caption{ Success-Rate plotted against temperature and top-p sampling values.}\label{fig13}
-\end{figure} 
+\caption{Success rate plotted against temperature and top-p sampling values.}\label{fig11}
+\end{figure}
+\subsubsection{Spatial Distribution Heatmap}
+The heatmap in (Figure 4.4) showcases the system's traversal and task allocation abilities across designated zones in the Unreal Engine environment.
+The brightest trails indicate optimal routes for collaborative robot activities. Deviations suggest exploratory patterns for locating objects or obstacle avoidance behaviors.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/heatmap.png}
+\caption{ Robot spatial Distribution and Activity Map}\label{fig11}
+\end{figure}
+
+\subsubsection{Running Cost and Scalability}
+Figure 4.5 highlights the cost-effectiveness of the project's approach, proving very inexpensive for testing at a small scale while remaining manageable even as complexity increased. The cost trajectory highlights the methodology's affordable scalability, enabling comprehensive simulations and assessments without incurring prohibitive overheads.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/running_cost.png}
+\caption{Language Model API Running Cost}\label{fig11}
+\end{figure}
+
+
+\subsection{Summary of Findings}
+The virtual robot agents demonstrated an encouraging 78\% overall success rate in executing natural language commands, with exceptional 92\% performance on simple object manipulation tasks. However, room for improvement exists in complex reasoning (62\% success) and multi-agent coordination (68\% success). Optimal language model hyperparameters were temperature 0.7 and top-p 0.8. Spatial analysis revealed even robot distribution with some clustering around task-specific zones. While longer text inputs slightly decreased success rates, the remarkably low cost for hundreds of API calls highlights the system's economic viability at scale.
+
+
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.9\textwidth]{figures/Picture8.png}
+% \caption{Language Model API Running Cost.}\label{fig12}
+% \end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.9\textwidth]{figures/Picture1.png}
+% \caption{ Success-Rate plotted against temperature and top-p sampling values.}\label{fig13}
+% \end{figure} 
 \section{Conclusion and Future Work}
 % \subsection{Conclusions}
-The conversational robot agents project has demonstrated the promising potential of integrating large language models with robotic systems for natural language interaction and task execution. The results highlight the system's viability for real-world applications while identifying areas for improvement. As this technology matures, the integration of natural language processing and cognitive reasoning might revolutionize robot planning and integration across various domains and unlock new frontiers in automation, productivity, and human-robot interaction.
+In this project, we developed an innovative system integrating Large Language Models (LLMs) with robotic planning techniques, called LLMBot: Multi-Agent Robotic Systems for Adaptive Task Execution, aimed at enhancing adaptability and cost-effectiveness in robotic task execution. The novelty of LLMBot lies in its combination of GPT-3.5 Turbo for high-level cognition and behavior trees for low-level action execution, enabling robots to understand and act upon natural language commands in a simulated 3D environment built with Unreal Engine.
+To evaluate LLMBot systematically, we conducted comprehensive assessments in the simulated environment, focusing on task execution efficiency and adaptability. Experimental results suggest that LLMBot outperformed traditional robotic planning techniques in terms of flexibility and natural language understanding. We also provided a demonstration of LLMBot using a hierarchical setup of a Master Bot coordinating Helper Bots, which offers a reference for practitioners looking to implement similar systems in real-world applications.
+We recognize the merits and limitations of our approach, particularly in terms of balancing the cognitive capabilities of LLMs with the precision required for robotic control. The integration of LLMs enhances the system's ability to handle complex, open-ended tasks but also introduces challenges related to hallucinations and potential misinterpretations. Our modular architecture, leveraging a Python environment for LLM logic and Unreal Engine for simulation, provides a flexible framework for mitigating these issues and incorporating future improvements.
+It is evident that the design of the system architecture significantly affects the performance of the integrated LLM-robotic system. For instance, our use of a RESTful API for communication between components and the hierarchical bot structure proved effective in our simulations. Researchers can further optimize this architecture in future work. There is potential for other LLMs or more advanced versions of GPT to produce better performance in robotic task planning and execution, which could lead to interesting future research directions.
+We present a complete implementation of LLMBot in a simulated environment while acknowledging that there are many ways to improve and extend the system. For instance, transitioning to the Robot Operating System (ROS) framework for real-world testing, integrating advanced perception capabilities, and incorporating more sophisticated planning methods like Hierarchical Task Networks (HTN) could significantly enhance the system's capabilities and real-world applicability.
+We acknowledge the limitations of our method in fully bridging the gap between simulated environments and real-world robotic systems. To effectively deploy such systems in real-world scenarios, autonomous robots require robust perception systems capable of interpreting various environmental states and events. While challenging, recent advancements in computer vision and multimodal AI present promising avenues for enhancing robots' situational awareness and adaptability. We are optimistic about addressing these challenges in our future work, paving the way for more intelligent, flexible, and reliable robotic systems across various domains.
 
 % \subsection{Limitations}
 Large language models (LLMs) used in robotics can generate nonsensical or inaccurate outputs, known as hallucinations. These can lead to unintended behaviors, misinterpretations, false assumptions, and confabulation. Providing more context to the model can help mitigate hallucinations, but there is a trade-off between computational cost and the risk of insufficient grounding.
@@ -404,4 +655,4 @@ An appendix contains supplementary information that is not an essential part of 
 %% if required, the content of .bbl file can be included here once bbl is generated
 %%\input sn-article.bbl
 
-\end{document}
+\end{document} 

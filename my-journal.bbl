@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{1}
+\begin{thebibliography}{0}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -42,20 +42,5 @@
 \ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
 \ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
 \csname PreBibitemsHook\endcsname
-
-%%% 1
-\bibitem[\protect\citeauthoryear{Benjamin et~al.}{2007}]{benjamin2007cognitive}
-\begin{bchapter}
-\bauthor{\bsnm{Benjamin}, \binits{D.P.}},
-\bauthor{\bsnm{Lonsdale}, \binits{D.}},
-\bauthor{\bsnm{Lyons}, \binits{D.M.}}:
-\bctitle{A cognitive robotics approach to comprehending human language and
-  behaviors}.
-In: \bbtitle{Proceedings of the ACM/IEEE International Conference on
-  Human-robot Interaction}
-(\byear{2007}).
-\burl{https://dl.acm.org/citation.cfm?doid=1228716.1228742}
-\end{bchapter}
-\endbibitem
 
 \end{thebibliography}
