@@ -1,46 +1,4 @@
-%Version 3 December 2023
-% See section 11 of the User Manual for version history
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                                                 %%
-%% Please do not use \input{...} to include other tex files.       %%
-%% Submit your LaTeX manuscript as one .tex document.              %%
-%%                                                                 %%
-%% All additional figures and files should be attached             %%
-%% separately and not embedded in the \TeX\ document itself.       %%
-%%                                                                 %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
-
-%%=======================================================%%
-%% to print line numbers in the margin use lineno option %%
-%%=======================================================%%
-
-%%\documentclass[lineno,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
-
-%%======================================================%%
-%% to compile with pdflatex/xelatex use pdflatex option %%
-%%======================================================%%
-
-%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
-
-
-%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove Numbered in the optional parenthesis. 
-%%The option is available for: sn-basic.bst, sn-vancouver.bst, sn-chicago.bst%  
- 
-%%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
-%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
-\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style 
-%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
-%%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
-%%\documentclass[pdflatex,sn-vancouver,Numbered]{sn-jnl}% Vancouver Reference Style
-%%\documentclass[pdflatex,sn-apa]{sn-jnl}% APA Reference Style 
-%%\documentclass[pdflatex,sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
-
-%%%% Standard Packages
-%%<additional latex packages if required can be included here>
-
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical 
 \usepackage{graphicx}%
 \usepackage{multirow}%
 \usepackage{amsmath,amssymb,amsfonts}%
@@ -56,28 +14,11 @@
 \usepackage{algpseudocode}%
 \usepackage{listings}%
 \usepackage{float}
-%%%%
 
-%%%%%=============================================================================%%%%
-%%%%  Remarks: This template is provided to aid authors with the preparation
-%%%%  of original research articles intended for submission to journals published 
-%%%%  by Springer Nature. The guidance has been prepared in partnership with 
-%%%%  production teams to conform to Springer Nature technical requirements. 
-%%%%  Editorial and presentation requirements differ among journal portfolios and 
-%%%%  research disciplines. You may find sections in this template are irrelevant 
-%%%%  to your work and are empowered to omit any such section if allowed by the 
-%%%%  journal you intend to submit to. The submission guidelines and policies 
-%%%%  of the journal take precedence. A detailed User Manual is available in the 
-%%%%  template package for technical guidance.
-%%%%%=============================================================================%%%%
 
-%% as per the requirement new theorem styles can be included as shown below
-\theoremstyle{thmstyleone}%
-\newtheorem{theorem}{Theorem}%  meant for continuous numbers
-%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
-%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\theoremstyle{thmstyleone}
+\newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}% 
-%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
 
 \theoremstyle{thmstyletwo}%
 \newtheorem{example}{Example}%
@@ -87,20 +28,12 @@
 \newtheorem{definition}{Definition}%
 
 \raggedbottom
-%%\unnumbered% uncomment this for unnumbered level heads
+
 
 \begin{document}
 
 \title[Article Title]{LLMBot: Multi-Agent Robotic Systems for Adaptive Task Execution}
 
-%%=============================================================%%
-%% GivenName	-> \fnm{Joergen W.}
-%% Particle	-> \spfx{van der} -> surname prefix
-%% FamilyName	-> \sur{Ploeg}
-%% Suffix	-> \sfx{IV}
-%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
-%%  \sfx{IV}}\email{iauthor@gmail.com}
-%%=============================================================%%
 
 
 \author{\fnm{Harith} \sur{Ibrahim}}\email{harithsami01@gmail.com}
@@ -119,19 +52,9 @@
 
 \abstract{Robotic task planning systems often require significant computational resources and financial investment, limiting their accessibility and scalability. Can we leverage recent advancements in Large Language Models (LLMs) to create more cost-effective and lightweight robotic planning solutions? This paper introduces an innovative framework that integrates LLMs with robotic systems for natural language interaction and task execution. Our approach, which we call LLMRP (Large Language Model Robotic Planner), combines GPT-3.5 Turbo for natural language understanding, reasoning, and high-level task planning with a simulated 3D environment in Unreal Engine. LLMRP uses behavior trees for robust low-level execution of robotic actions, grounding the LLM's capabilities in a practical robotic context. The system employs prompt engineering, multimodal input, and parameter optimization to enhance the LLM's performance and reduce computational overhead. For systematic evaluations, we developed a comprehensive test suite assessing success rates, spatial distributions, and cost-effectiveness across various scenarios. Experimental results demonstrate that our approach outperforms traditional planning systems in terms of computational efficiency and cost-effectiveness while maintaining comparable task success rates. Additionally, we have demonstrated LLMRP using a simulated mobile manipulator in Unreal Engine. This research advances multi-agent collaboration and human-robot interaction by enabling more intuitive and resource-efficient communication between humans and robots. By combining modern language models with lightweight execution frameworks, this project paves the way for more accessible, adaptive, and cost-effective robotic solutions capable of natural language-based collaboration.}
 
-%%================================%%
-%% Sample for structured abstract %%
-%%================================%%
- 
-% \abstract{\textbf{Purpose:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
-% 
-% \textbf{Methods:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
-% 
-% \textbf{Results:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
-% 
-% \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
 
-\keywords{Large Language Models, Robotic Systems, Natural Language Interaction, Task Planning, Human-Robot Interaction, Multi-agent Collaboration, Warehouse Automation, Behavior Trees, Simulated Environment, Physical Task Execution, Embodiment}
+\keywords{Large Language Models, Robotic Systems, Natural Language Interaction, Task Planning, Human-Robot Interaction, Multi-agent Collaboration, Behavior Trees, Simulated Environment, Physical Task Execution, Embodiment}
+% use 4 to 6 keywords
 
 %%\pacs[JEL Classification]{D8, H51}
 
@@ -141,7 +64,11 @@
 
 \section{Introduction}\label{sec1}
 Effective robotic task planning requires not only a deep understanding of the environment and available actions but also the ability to interpret and execute high-level, natural language instructions. Traditional approaches to robot planning often involve complex, expensive algorithms that are difficult to develop and maintain. Can we leverage recent advancements in large language models (LLMs) to create more accessible and cost-effective robot planning solutions? Our work introduces LLM-RP (Large Language Model Robotic Planner), a novel framework that integrates LLMs with symbolic planning methods for intuitive, natural language-based robot control.
-
+% remove question mark what the hell
+% call it LLMBot in the abstract
+% make everything past tense
+% mobile maniolultor
+% reference the correct figure numbers
 LLMs trained on vast corpora of text have demonstrated remarkable multi-task generalization and common-sense reasoning capabilities. Recent research has explored their potential in robotic task planning by generating or scoring action sequences. However, these approaches often lack grounding in the robot's physical capabilities and current environmental state. LLM-RP addresses this limitation by combining the rich language understanding of LLMs with the efficiency and adaptability of symbolic planners, specifically behavior trees.
 \begin{figure}[h]
 \centering
@@ -149,7 +76,8 @@ LLMs trained on vast corpora of text have demonstrated remarkable multi-task gen
 \caption{Diagram Showing Simplified Project Plan}\label{fig1}
 \end{figure}
 A key component of LLM-RP is its use of GPT-3.5 Turbo for natural language understanding, reasoning, and high-level task planning. We leverage the fact that LLMs are trained on diverse web content, including programming tutorials and documentation, to create a novel prompting scheme. This scheme provides the LLM with a Pythonic-style program structure, including available actions, environment objects, and function definitions for tasks. We incorporate situated awareness by asserting preconditions and implementing recovery actions for failed assertions.
-
+% change the word pythonic to programming language inspired
+% inconsistant name
 LLM-RP operates within a simulated 3D environment in Unreal Engine, allowing for comprehensive testing and evaluation. The system utilizes behavior trees for robust low-level execution of robotic actions, bridging the gap between high-level language understanding and concrete robot behaviors. We employ prompt engineering, multimodal input, and parameter optimization to enhance the LLM's performance and reduce computational overhead.
 
 
@@ -197,7 +125,7 @@ Simulated environments play a crucial role in robotics research, allowing for ra
 
 LLM-RP operates within a simulated 3D environment in Unreal Engine, enabling comprehensive testing and evaluation of our approach across diverse scenarios. This setup allows us to assess the system's performance, running costs, and cost-effectiveness in a controlled yet realistic setting.
 
-
+% combine background subsection to 3 only
 
 \section{Method}
 We use the capabilities of large language models (LLMs) combined with behavior trees to create an intelligent robotic system capable of understanding natural language instructions and performing complex tasks in a simulated environment. Below, we describe how we integrate LLMs with behavior trees, implement robot abilities, and deploy the approach in a virtual Unreal Engine environment for household and industrial scenarios.
@@ -236,7 +164,7 @@ The system employs context-aware memory within the language model and object mem
 \end{figure}
 
 
-\subsection{Virtual Environment Implementation}
+\subsection{Virtual World Implementation}
 Given the integrated LLM and behavior tree framework, we implement this system in a virtual Unreal Engine environment simulating both household and industrial scenarios. To do so, we use a Python environment to handle the LLM's logic and reasoning capabilities, which communicates with the Unreal Engine simulation via an API.
 \begin{figure}[H]
 \centering
@@ -252,89 +180,64 @@ Use LLM-generated strategies for error correction and handling unexpected situat
 The Unreal Engine environment provides a realistic testbed for our approach, leveraging its strengths in intelligent agent creation, behavior simulation, navigation, and perception systems.
 Our approach enhances human-robot interactions by enabling robots to display appropriate emotional expressions based on the chat context. The system's modularity is emphasized through a JSON file configuration system, allowing for easy component replacement without modifying the underlying code.
 This implementation allows us to test and evaluate our approach across diverse scenarios, assessing the system's performance in both household and industrial settings. The combination of LLMs and behavior trees provides a flexible and powerful framework for robotic task planning and execution, bridging the gap between natural language understanding and executable robot actions.
-
-
-% \begin{figure}[h]
-% \centering
-% \includegraphics[width=0.6\textwidth]{figures/Picture9.png}
-% \caption{Screenshot showing Robot Chat User Interface.}\label{fig4}
-% \end{figure}
-% \begin{figure}[h]
-% \centering
-% \includegraphics[width=0.6\textwidth]{figures/Picture10.png}
-% \caption{Screenshot of the simulation. Intelligent robots managing inventory in a Warehouse.}\label{fig5}
-% \end{figure}
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.6\textwidth]{figures/Picture14.png}
-% \caption{Warehouse Simulation Environment in Unreal Engine 5.}\label{fig6}
-% \end{figure}
-% \begin{figure}[h]
-% \centering
-% \includegraphics[width=0.8\textwidth]{figures/Picture4.png}
-% \caption{Simulation Evaluation process diagram.}\label{fig10}
-% \end{figure}
-% \begin{figure}[h]
-% \centering
-% \includegraphics[width=0.9\textwidth]{figures/Picture5.png}
-% \caption{Proposed Robot Cognitive Architecture.}\label{fig8}
-% \end{figure}
-
-
+ % make sure it shows in the right place
+ % section explaining the behaviour algorithm 3.4
+ % picture 5
 \begin{algorithm}
-\caption{Cognitive Architecture for LLM-Driven Robotic NPC}\label{algo_cognitive_npc}
-\begin{algorithmic}[1]
-\Require LLM API, Behavior Tree System, Facial Expression Module
-\Ensure Coherent NPC cognition, communication, and action
-\Procedure{CognitiveLoop}{}
-\While{SessionActive()}
-\State stimulus $\gets$ AcquireEnvironmentalInput()
-\State cognition $\gets$ CognitiveProcessing(stimulus)
-\State ExecuteCognitiveOutput(cognition)
-\EndWhile
-\EndProcedure
-\Procedure{CognitiveProcessing}{stimulus}
-\State context $\gets$ RetrieveContextualMemory()
-\State integratedInput $\gets$ IntegrateInput(stimulus, context)
-\State llmOutput $\gets$ InvokeLLM(integratedInput)
-\If{ValidateLLMOutput(llmOutput)}
-\State UpdateEpisodicMemory(llmOutput)
-\State \Return llmOutput
-\Else
-\State LogCognitiveError("LLM Invocation Failed")
-\State TerminateSession()
-\EndIf
-\EndProcedure
-\Procedure{ExecuteCognitiveOutput}{cognition}
-\If{ErrorDetected(cognition)}
-\State LogCognitiveError(cognition)
-\State TerminateSession()
-\Else
-\ParallelProcedure
-\State ActionExecution(cognition)
-\State EmotionalExpression(cognition)
-\EndParallelProcedure
-\EndIf
-\EndProcedure
-\Procedure{ActionExecution}{cognition}
-\State action $\gets$ ExtractAction(cognition)
-\State parameters $\gets$ ExtractParameters(cognition)
-\State behaviorTree $\gets$ SelectBehaviorTree(action, parameters)
-\State executionResult $\gets$ ExecuteBehaviorTree(behaviorTree)
-\State UpdateEpisodicMemory(executionResult)
-\EndProcedure
-\Procedure{EmotionalExpression}{cognition}
-\State emotionVector $\gets$ EmotionInference(cognition)
-\State facialConfiguration $\gets$ MapEmotionToExpression(emotionVector)
-\State ActivateFacialExpression(facialConfiguration)
-\EndProcedure
-\Procedure{TerminateSession}{}
-\State GenerateSessionReport()
-\State ReleaseSystemResources()
-\State InitiateShutdownSequence()
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+    \caption{Cognitive Architecture for LLM-Driven Robotic NPC}\label{algo_cognitive_npc}
+    \begin{algorithmic}[1]
+    \Require LLM API, Behavior Tree System, Facial Expression Module
+    \Ensure Coherent NPC cognition, communication, and action
+    \Procedure{CognitiveLoop}{}
+    \While{SessionActive()}
+    \State stimulus $\gets$ AcquireEnvironmentalInput()
+    \State cognition $\gets$ CognitiveProcessing(stimulus)
+    \State ExecuteCognitiveOutput(cognition)
+    \EndWhile
+    \EndProcedure
+    \Procedure{CognitiveProcessing}{stimulus}
+    \State context $\gets$ RetrieveContextualMemory()
+    \State integratedInput $\gets$ IntegrateInput(stimulus, context)
+    \State llmOutput $\gets$ InvokeLLM(integratedInput)
+    \If{ValidateLLMOutput(llmOutput)}
+    \State UpdateEpisodicMemory(llmOutput)
+    \State \Return llmOutput
+    \Else
+    \State LogCognitiveError("LLM Invocation Failed")
+    \State TerminateSession()
+    \EndIf
+    \EndProcedure
+    \Procedure{ExecuteCognitiveOutput}{cognition}
+    \If{ErrorDetected(cognition)}
+    \State LogCognitiveError(cognition)
+    \State TerminateSession()
+    \Else
+    \ParallelProcedure
+    \State ActionExecution(cognition)
+    \State EmotionalExpression(cognition)
+    \EndParallelProcedure
+    \EndIf
+    \EndProcedure
+    \Procedure{ActionExecution}{cognition}
+    \State action $\gets$ ExtractAction(cognition)
+    \State parameters $\gets$ ExtractParameters(cognition)
+    \State behaviorTree $\gets$ SelectBehaviorTree(action, parameters)
+    \State executionResult $\gets$ ExecuteBehaviorTree(behaviorTree)
+    \State UpdateEpisodicMemory(executionResult)
+    \EndProcedure
+    \Procedure{EmotionalExpression}{cognition}
+    \State emotionVector $\gets$ EmotionInference(cognition)
+    \State facialConfiguration $\gets$ MapEmotionToExpression(emotionVector)
+    \State ActivateFacialExpression(facialConfiguration)
+    \EndProcedure
+    \Procedure{TerminateSession}{}
+    \State GenerateSessionReport()
+    \State ReleaseSystemResources()
+    \State InitiateShutdownSequence()
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
+
 
 
 
@@ -379,9 +282,45 @@ This implementation allows us to test and evaluate our approach across diverse s
 \end{algorithmic}
 \end{algorithm}
 
-
+% keep one of them and dont make it important
 
 \section{Experiments and Evaluation}
+% include case study (real life application section)
+\subsection*{Real-Life Applicability}
+To demonstrate the real-life applicability of our approach, we present a case study involving a warehouse inventory management system. In this scenario, a team of robotic agents equipped with LLM-RP capabilities is tasked with managing inventory, locating items, and coordinating with other robots to fulfill orders. The system receives natural language instructions from a human operator and executes the corresponding tasks autonomously. The robots navigate the warehouse, interact with objects, and communicate with each other to optimize the inventory management process. This case study showcases the adaptability, efficiency, and cost-effectiveness of our approach in a practical, real-world setting.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{figures/Picture9.png}
+\caption{Screenshot showing Robot Chat User Interface.}\label{fig4}
+\end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.6\textwidth]{figures/Picture10.png}
+% \caption{Screenshot of the simulation. Intelligent robots managing inventory in a Warehouse.}\label{fig5}
+% \end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.6\textwidth]{figures/Picture14.png}
+% \caption{Warehouse Simulation Environment in Unreal Engine 5.}\label{fig6}
+% \end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figures/Picture4.png}
+% \caption{Simulation Evaluation process diagram.}\label{fig10}
+% \end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=0.9\textwidth]{figures/Picture5.png}
+% \caption{Proposed Robot Cognitive Architecture.}\label{fig8}
+% \end{figure}
+
+
+
+% IV. EXPERIMENT AND RESULTS
+% A. COMPLEX COMMANDS
+% B. AUTOMATED EVALUATION
+% C. RESULT ANALYSIS
+% D. REAL LIFE APPLICABILITY
 The evaluation approach aimed to comprehensively assess the system's performance, effectiveness, and the successful integration of LLMs, Unreal Engine classes, perception systems, and behavior trees in enabling smooth human-robot collaboration on complex tasks. A general testing environment was developed in Unreal Engine, simulating a multi-room scenario operated by a swarm of virtual robots. The environment featured color-coded rooms, interactive objects, and various task zones, as shown in Figure 4.1.
 The simulation involved running the environment with 5 virtual robots of different types executing natural language instructions, as illustrated in Figure 4.2. In addition to the text commands, the simulation also took input parameters for the language model, such as temperature and top-p sampling values, which control the quality of text generation in terms of creativity and consistency (refer to Chapter 2 for an in-depth explanation).
 
@@ -401,11 +340,13 @@ Where x represented temperature, y represented Top-P value, and n represented th
 This resulted in 121 simulations to cover all parameter variations extensively.
 After each simulation run, the entire chat history, success rates, execution time, position data, and other relevant values were automatically saved into a dedicated folder in JSON format. A Python script was developed to parse and process these JSON files from multiple simulation runs, enabling automated evaluation of various key metrics and insights.
 The evaluation aimed to strike a balance between efficiency and success rate, assessing the effective integration of LLMs, Unreal Engine classes, perception systems, and behavior trees to enable smooth human-robot collaboration on complex tasks. A comprehensive evaluation method was implemented to assess the system's performance and effectiveness.
-\subsection{Evaluation Metrics}
+% \subsection{Results}
 The evaluation script analyzed success rates, execution times, individual component performance, and the language model running cost. It optimized hyperparameters through over 100 simulation runs and generated a spatial heatmap of robot locations. The analysis provided insights into the system's effectiveness, efficiency, and cost-effectiveness.
-\subsubsection{Task-Specific Performance}
+\subsection{Task-Specific Performance}
 Among the evaluated virtual robots (Table 4.1), the Explorer and Manipulator robots exhibited the highest success rates of 88.5\% and 82.3\% respectively, indicating strong performance in exploration and object interaction tasks. In contrast, the Communicator and Analyzer robots had lower success rates around 65\%, highlighting opportunities for improvement in complex communication and data analysis tasks.
 Table 4.1: Robot performance values over all evaluation sessions.
+% fix this table start new line
+
 \begin{table}[h]
 \caption{Robot performance values over all evaluation sessions}\label{tab1}
 \begin{tabular*}{\textwidth}{@{\extracolsep\fill}lcccl}
@@ -438,7 +379,7 @@ Data Analysis & 73.2\% & 3.41 & Medium \\
 \botrule
 \end{tabular*}
 \end{table}
-\subsubsection{Parameter Optimization}
+\subsection{Parameter Optimization}
 Success rates for robotic tasks were found to be significantly impacted by the top-p and temperature parameters used by the LLM (Figure 4.3).
 The analysis reveals optimal robotic planning performance occurs at intermediate levels of the top-p and temperature parameters, suggesting a balanced approach between exploitation and exploration is most effective. Notably, a temperature around 0.7 leads to high success rates, aligning with common LLM usage recommendations.
 \begin{figure}[H]
@@ -446,16 +387,16 @@ The analysis reveals optimal robotic planning performance occurs at intermediate
 \includegraphics[width=0.9\textwidth]{figures/Picture1.png}
 \caption{Success rate plotted against temperature and top-p sampling values.}\label{fig11}
 \end{figure}
-\subsubsection{Spatial Distribution Heatmap}
+\subsection{Spatial Distribution Heatmap}
 The heatmap in (Figure 4.4) showcases the system's traversal and task allocation abilities across designated zones in the Unreal Engine environment.
 The brightest trails indicate optimal routes for collaborative robot activities. Deviations suggest exploratory patterns for locating objects or obstacle avoidance behaviors.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{figures/heatmap.png}
-\caption{ Robot spatial Distribution and Activity Map}\label{fig11}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.5\textwidth]{figures/heatmap.png}
+% \caption{ Robot spatial Distribution and Activity Map}\label{fig11}
+% \end{figure}
 
-\subsubsection{Running Cost and Scalability}
+\subsection{Running Cost and Scalability}
 Figure 4.5 highlights the cost-effectiveness of the project's approach, proving very inexpensive for testing at a small scale while remaining manageable even as complexity increased. The cost trajectory highlights the methodology's affordable scalability, enabling comprehensive simulations and assessments without incurring prohibitive overheads.
 
 \begin{figure}[H]
@@ -480,7 +421,9 @@ The virtual robot agents demonstrated an encouraging 78\% overall success rate i
 % \caption{ Success-Rate plotted against temperature and top-p sampling values.}\label{fig13}
 % \end{figure} 
 \section{Conclusion and Future Work}
-% \subsection{Conclusions}
+% E. LIMITATIONS AND FUTURE WORK
+
+\subsection{Conclusions}
 In this project, we developed an innovative system integrating Large Language Models (LLMs) with robotic planning techniques, called LLMBot: Multi-Agent Robotic Systems for Adaptive Task Execution, aimed at enhancing adaptability and cost-effectiveness in robotic task execution. The novelty of LLMBot lies in its combination of GPT-3.5 Turbo for high-level cognition and behavior trees for low-level action execution, enabling robots to understand and act upon natural language commands in a simulated 3D environment built with Unreal Engine.
 To evaluate LLMBot systematically, we conducted comprehensive assessments in the simulated environment, focusing on task execution efficiency and adaptability. Experimental results suggest that LLMBot outperformed traditional robotic planning techniques in terms of flexibility and natural language understanding. We also provided a demonstration of LLMBot using a hierarchical setup of a Master Bot coordinating Helper Bots, which offers a reference for practitioners looking to implement similar systems in real-world applications.
 We recognize the merits and limitations of our approach, particularly in terms of balancing the cognitive capabilities of LLMs with the precision required for robotic control. The integration of LLMs enhances the system's ability to handle complex, open-ended tasks but also introduces challenges related to hallucinations and potential misinterpretations. Our modular architecture, leveraging a Python environment for LLM logic and Unreal Engine for simulation, provides a flexible framework for mitigating these issues and incorporating future improvements.
@@ -488,12 +431,13 @@ It is evident that the design of the system architecture significantly affects t
 We present a complete implementation of LLMBot in a simulated environment while acknowledging that there are many ways to improve and extend the system. For instance, transitioning to the Robot Operating System (ROS) framework for real-world testing, integrating advanced perception capabilities, and incorporating more sophisticated planning methods like Hierarchical Task Networks (HTN) could significantly enhance the system's capabilities and real-world applicability.
 We acknowledge the limitations of our method in fully bridging the gap between simulated environments and real-world robotic systems. To effectively deploy such systems in real-world scenarios, autonomous robots require robust perception systems capable of interpreting various environmental states and events. While challenging, recent advancements in computer vision and multimodal AI present promising avenues for enhancing robots' situational awareness and adaptability. We are optimistic about addressing these challenges in our future work, paving the way for more intelligent, flexible, and reliable robotic systems across various domains.
 
-% \subsection{Limitations}
+\subsection{Limitations}
 Large language models (LLMs) used in robotics can generate nonsensical or inaccurate outputs, known as hallucinations. These can lead to unintended behaviors, misinterpretations, false assumptions, and confabulation. Providing more context to the model can help mitigate hallucinations, but there is a trade-off between computational cost and the risk of insufficient grounding.
 
-% \subsection{Future Work}
-Key future enhancements include transitioning to the Robot Operating System (ROS) framework for real-world robotic hardware testing and deployment, integrating perception and navigation capabilities via real-life sensors, enabling system-generated general subroutines and action loops for task automation in factories and warehouses, and incorporating advanced planning methods like Hierarchical Task Networks (HTN) for efficient execution of complex tasks. Future work should prioritize implementing these advanced planning techniques, ROS integration, and task queuing capabilities.
- 
+\subsection{Future Work}
+Key future enhancements include transitioning to the Robot Operating System (ROS) framework for real-world robotic hardware testing and deployment, integrating perception and navigation capabilities via real-life sensors, enabling system-generated general subroutines and action loops for task automation in factories and warehouses, and incorporating advanced planning methods other than behaviour trees like Hierarchical Task Networks (HTN) and GOAP (goal oriented action planning) for efficient execution of complex tasks. Future work should prioritize implementing these advanced planning techniques, ROS integration, and task queuing capabilities.
+% explain my objective clearer 
+
 \section*{Acknowledgments}
 We would like to acknowledge the support of [funding agency/institution] for providing the resources and funding for this research project. We also express our gratitude to [collaborators/contributors] for their valuable contributions and insights throughout the project's development.
 
@@ -516,10 +460,7 @@ Some journals require declarations to be submitted in a standardised format. Ple
 \noindent
 If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section. 
 
-%%===================================================%%
-%% For presentation purpose, we have included        %%
-%% \bigskip command. Please ignore this.             %%
-%%===================================================%%
+
 \bigskip
 \begin{flushleft}%
 Editorial Policies for:
@@ -543,31 +484,10 @@ BMC journals: \url{https://www.biomedcentral.com/getpublished/editorial-policies
 
 An appendix contains supplementary information that is not an essential part of the text itself but which may be helpful in providing a more comprehensive understanding of the research problem or it is information that is too cumbersome to be included in the body of the paper.
 
-%%=============================================%%
-%% For submissions to Nature Portfolio Journals %%
-%% please use the heading ``Extended Data''.   %%
-%%=============================================%%
-
-%%=============================================================%%
-%% Sample for another appendix section			       %%
-%%=============================================================%%
-
-%% \section{Example of another appendix section}\label{secA2}%
-%% Appendices may be used for helpful, supporting or essential material that would otherwise 
-%% clutter, break up or be distracting to the text. Appendices can consist of sections, figures, 
-%% tables and equations etc.
-
 \end{appendices}
 
-%%===========================================================================================%%
-%% If you are submitting to one of the Nature Portfolio journals, using the eJP submission   %%
-%% system, please include the references within the manuscript file itself. You may do this  %%
-%% by copying the reference list from your .bbl file, paste it into the main manuscript .tex %%
-%% file, and delete the associated \verb+\bibliography+ commands.                            %%
-%%===========================================================================================%%
 
-\bibliography{sn-bibliography}% common bib file
-%% if required, the content of .bbl file can be included here once bbl is generated
-%%\input sn-article.bbl
-
+\bibliography{sn-bibliography}
+% put all the needed in text citation
+% cross reference figures, tables and section
 \end{document} 
