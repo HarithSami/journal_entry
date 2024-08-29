@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+
+\begin{document}
+
+\begin{minipage}{0.4\textwidth}
+\begin{algorithm}[H]
+    \caption{Cognitive Robotic Loop}\label{algo_cognitive_loop}
+    \begin{algorithmic}[1]
+    \Procedure{CognitiveLoop}{}
+        \While{RobotActive()}
+            \State userCommand $\gets$ ReceiveUserInput()
+            \State worldState $\gets$ PerceiveEnvironment()
+            \State UpdateObjectMemory(worldState)
+            \State context $\gets$ ProcessLanguageModel(userCommand, worldState)
+            \State plan $\gets$ GeneratePlan(context)
+            \For{each step in plan}
+                \State selectedBehavior $\gets$ SelectBehaviorTree(step)
+                \State ExecutePlan(selectedBehavior)
+            \EndFor
+            \State feedback $\gets$ GetFeedback()
+            \State successFailure $\gets$ ReportSuccessFailure(feedback)
+            \State response $\gets$ GenerateResponse(successFailure, feedback)
+            \State CommunicateResponseToUser(response)
+            \State UpdateWorldEnvironment()
+        \EndWhile
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+\end{minipage}
+
+\end{document}

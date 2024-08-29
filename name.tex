@@ -1,0 +1,60 @@
+\begin{algorithm}
+    \caption{Cognitive Architecture for LLM-Driven Robotic NPC}\label{algo_cognitive_npc}
+    \begin{algorithmic}[1]
+    \Require LLM API, Behavior Tree System, Facial Expression Module
+    \Ensure Coherent NPC cognition, communication, and action
+    \Procedure{CognitiveLoop}{}
+    \While{SessionActive()}
+    \State stimulus $\gets$ AcquireEnvironmentalInput()
+    \State cognition $\gets$ CognitiveProcessing(stimulus)
+    \State ExecuteCognitiveOutput(cognition)
+    \EndWhile
+    \EndProcedure
+    \Procedure{CognitiveProcessing}{stimulus}
+    \State context $\gets$ RetrieveContextualMemory()
+    \State integratedInput $\gets$ IntegrateInput(stimulus, context)
+    \State llmOutput $\gets$ InvokeLLM(integratedInput)
+    \If{ValidateLLMOutput(llmOutput)}
+    \State UpdateEpisodicMemory(llmOutput)
+    \State \Return llmOutput
+    \Else
+\begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{Picture1.png}
+        \caption{Enter Caption}
+        \label{fig:enter-label}
+    \end{figure}
+        \State LogCognitiveError("LLM Invocation Failed")
+    \State TerminateSession()
+    \EndIf
+    \EndProcedure
+    \Procedure{ExecuteCognitiveOutput}{cognition}
+    \If{ErrorDetected(cognition)}
+    \State LogCognitiveError(cognition)
+    \State TerminateSession()
+    \Else
+    \ParallelProcedureext
+    \State ActionExecution(cognition)
+    \State EmotionalExpression(cognition)
+    \EndParallelProcedure
+    \EndIf
+    \EndProcedure
+    \Procedure{ActionExecution}{cognition}
+    \State action $\gets$ ExtractAction(cognition)
+    \State parameters $\gets$ ExtractParameters(cognition)
+    \State behaviorTree $\gets$ SelectBehaviorTree(action, parameters)
+    \State executionResult $\gets$ ExecuteBehaviorTree(behaviorTree)
+    \State UpdateEpisodicMemory(executionResult)
+    \EndProcedure
+    \Procedure{EmotionalExpression}{cognition}
+    \State emotionVector $\gets$ EmotionInference(cognition)
+    \State facialConfiguration $\gets$ MapEmotionToExpression(emotionVector)
+    \State ActivateFacialExpression(facialConfiguration)
+    \EndProcedure
+    \Procedure{TerminateSession}{}
+    \State GenerateSessionReport()
+    \State ReleaseSystemResources()
+    \State InitiateShutdownSequence()
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
